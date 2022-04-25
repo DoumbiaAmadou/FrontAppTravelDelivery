@@ -6,7 +6,6 @@ import Contact from "./Contact";
 import About from "./About";
 import Profile  from "./Profile";
 
-
 function App() {
   return (
     <BrowserRouter>
