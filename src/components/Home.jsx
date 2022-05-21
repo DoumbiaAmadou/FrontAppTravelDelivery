@@ -7,7 +7,7 @@ const Home = ({ travelList, onLoadAllTrips }) => {
   const items = (element) => (
     <li key={element._id} className="collection-item avatar ">
       <div>
-        <div class="d-flex justify-content-center">
+        <div className="d-flex justify-content-center">
           <span className="material-icons large align-items-center">
             luggage
           </span>
