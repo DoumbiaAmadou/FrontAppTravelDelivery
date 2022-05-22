@@ -13,8 +13,6 @@ import { useEffect } from "react";
 import { ADD_TRIPS } from '../reducers/TripsReducer'
 
 function App() {
-
-
   useEffect(() => {
     fetch('http://localhost:3000/trip').then(res => res.json())
       .then(json => {
