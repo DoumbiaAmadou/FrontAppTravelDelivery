@@ -1,10 +1,10 @@
-export const ADD_TRIPS = 'ADD_TRIPS';
+export const LOAD_TRIPS = 'LOAD_TRIPS';
 
 let TripsReducer = (state = [], action) => {
   switch (action.type) {
 
-    case ADD_TRIPS:
-      return [...state, ...action.payload];
+    case LOAD_TRIPS:
+      return [...action.payload];
 
     default:
       return state

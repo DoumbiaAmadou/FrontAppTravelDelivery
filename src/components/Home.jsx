@@ -1,10 +1,11 @@
 import moment from "moment";
 import { connect } from 'react-redux';
-import { ADD_TRIPS } from './../reducers/TripsReducer'
+import { LOAD_TRIPS } from './../reducers/TripsReducer'
 
-const Home = ({ travelList, onLoadAllTrips }) => {
+const Home = ({ allTrips, auth, onLoadAllTrips }) => {
 
-  const items = (element) => (
+
+  const items = (element) => {console.log(element._id); return (
     <li key={element._id} className="collection-item avatar ">
       <div>
         <div className="d-flex justify-content-center">
@@ -43,7 +44,7 @@ const Home = ({ travelList, onLoadAllTrips }) => {
         <img alt="" className="circle  responsive-img" src={element.images} />
       </div>
     </li>
-  )
+  )}
 
   return (
     <div>
@@ -51,7 +52,7 @@ const Home = ({ travelList, onLoadAllTrips }) => {
         <h4 className="center"> trajets disponibles </h4>
         <p />
         <ul className="collection">
-          {travelList.map(items)}
+          {allTrips.map(items)}
         </ul>
       </div>
     </div>
@@ -60,14 +61,15 @@ const Home = ({ travelList, onLoadAllTrips }) => {
 
 const HomeStore = connect(
   (state) => ({
-    travelList: state.allTrips
-
+    allTrips: state.allTrips,
+    auth: state.auth
   }),
   (dispatch) => ({
     onLoadAllTrips: additionnalList => dispatch({
-      type: ADD_TRIPS,
+      type: LOAD_TRIPS,
       payload: additionnalList
     })
+
   })
 )(Home);
 
