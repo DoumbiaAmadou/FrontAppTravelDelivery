@@ -1,6 +1,6 @@
 import moment from "moment";
 import { connect } from 'react-redux';
-import { LOAD_TRIPS } from './../reducers/TripsReducer'
+import { LOAD_TRIPS } from '../reducers/tripsReducer'
 
 const Home = ({ allTrips, auth, onLoadAllTrips }) => {
 
@@ -12,7 +12,7 @@ const Home = ({ allTrips, auth, onLoadAllTrips }) => {
           <span className="material-icons large align-items-center">
             luggage
           </span>
-          <span className="kilo">
+          <span className="align-middle kilo ">
             {element.avalaiblekilos && element.avalaiblekilos + ' Kg  (dispo)'}
           </span>
 

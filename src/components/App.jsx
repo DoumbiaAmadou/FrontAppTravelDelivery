@@ -6,17 +6,17 @@ import Contact from "./Contact";
 import Login from "./Login";
 import SignUp from "./SignUp";
 import About from "./About";
+import Cart from "./Cart"; 
 import Profile from "./Profile";
 import { Provider } from "react-redux";
 import store from '../store'
 import { useEffect } from "react";
-import { LOAD_TRIPS } from './../reducers/TripsReducer'
+import { LOAD_TRIPS } from '../reducers/tripsReducer'
 function App() {
 
 
   useEffect(() => {
     console.log('APP =>', store.getState())
-
       fetch('http://localhost:3000/trip')
         .then(res => res.json())
         .then(json => {
@@ -27,7 +27,7 @@ function App() {
           })
 
         }).catch(err => {
-          console.log('catch', err)
+          console.log('catch',err)
           store.dispatch({
             type: LOAD_TRIPS,
             payload: []
@@ -48,6 +48,7 @@ function App() {
           <Route path='/profile' component={Profile} />
           <Route path='/about' component={About} />
           <Route path='/contact' component={Contact} />
+          <Route path='/cart' component={Cart} />
         </div>
       </BrowserRouter>
 

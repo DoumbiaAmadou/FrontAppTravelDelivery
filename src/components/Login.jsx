@@ -32,7 +32,7 @@ const LoginUI = ({ userConnected, isConnected, onStoreUser }) => {
     } else {
       console.log('connectedUser', connectedUser)
       setUser({ email: '', password: '', message: connectedUser.message })
-     
+
     }
 
   }
@@ -51,9 +51,9 @@ const LoginUI = ({ userConnected, isConnected, onStoreUser }) => {
                       <p className="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Se connecter!</p>
 
                       <form className="mx-1 mx-md-4" onSubmit={handleSubmit}>
-                        { user.message &&
+                        {user.message &&
                           <div className="alert alert-danger">
-                          <strong>Erreur!</strong>  {user.message}
+                            <strong>Erreur!</strong>  {user.message}
                           </div>
                         }
                         <span> {user.message} </span>
@@ -93,27 +93,33 @@ const LoginUI = ({ userConnected, isConnected, onStoreUser }) => {
     </div >
   )
 }
+function mapStateToProps(state) {
 
+  let { user, isConnected } = state;
+  return {
+    userConnected: user,
+    isConnected: isConnected,
+  }
 
-const Login = connect(
-  (state) => ({
-    userConnected: state.user,
-    isConnected: state.isConnected,
-  })
-  , (dispatch) => ({
-    onStoreUser: user => {
+};
+function mapDispatchToProps(dispatch) {
+  return {
+    onStoreUser: (user) => {
       dispatch({
         type: STORE_USER,
         payload: user
       });
-    },
-    onDisconnect: () => {
+    }
+    ,onDisconnect:   () => {
       dispatch({
         type: DISCONNECT_USER,
       });
     }
+  }
+}
 
-  })
+const Login = connect(
+  mapStateToProps, mapDispatchToProps
 )(LoginUI);
 
 export default Login; 
