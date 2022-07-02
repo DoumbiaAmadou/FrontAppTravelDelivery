@@ -110,7 +110,7 @@ function mapDispatchToProps(dispatch) {
         payload: user
       });
     }
-    ,onDisconnect:   () => {
+    , onDisconnect: () => {
       dispatch({
         type: DISCONNECT_USER,
       });
