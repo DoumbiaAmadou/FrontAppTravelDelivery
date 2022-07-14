@@ -1,3 +1,17 @@
+div.container-lg > nav{
+  height: auto;
+}
+#colorGrey{
+ text-align: center;
+}
+#colorGrey, nav ul a, nav ul a:hover{
+  color :  gray;
+}
+
+nav ul li a{
+  height: 65px;
+  text-align: center;
+}
 
 .App-logo {
   height: 40vmin;
