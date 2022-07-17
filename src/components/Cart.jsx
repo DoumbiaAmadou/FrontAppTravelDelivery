@@ -1,47 +1,33 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { useState } from "react";
 import { connect } from "react-redux";
-import { ADD_RESERVATION, REMOVE_RESERVATION } from "../reducers/cartReducer";
+import { UPDATE_RESERVATION, REMOVE_RESERVATION } from "../reducers/cartReducer";
 
-const Cart = ({ cart, addItem, removeItem }) => {
+const Cart = ({ cart, updateItem, removeItem }) => {
 
-    let [cartLocal, setCartLocal] = useState(cart);
-
-    //useState([{
-    //     arrivaldate: "2022-05-13T22:00:00.000Z",
-    //     avalaiblekilos: 20,
-    //     cityFrom: "Madrid",
-    //     cityTo: "Abidjan",
-    //     departureDate: "2022-05-11T22:00:00.000Z",
-    //     description: "un Bon petit weekend .",
-    //     images: ['http://localhost:3000/uploads/1650932605295buildings-7109918_640.jpg'],
-    //     kiloPrice: 5.99,
-    //     quantity: "11",
-    //     tripsStatus: "RESERVATION",
-    //     _id: "62673b7db9ca6422d32a8e62"
-    // }])// useState(cart);
-
-    const handleChange = (e, id) => {
+    const handleChange = (e, element) => {
         // e.preventDefault();
-        console.log('handleChange', cart);
-        let newCart = cartLocal.map((element, index) => {
-            if (index === id)
-                return { ...element, [e.target.name]: e.target.value }
-            return element
-        });
-        console.log(newCart)
-        setCartLocal([...newCart]);
+        console.log('handleChange', cart, e.target.value);
+        if (e.target.value < 1)
+            return removeItem(element);
+
+        updateItem({ _id: element._id, [e.target.name]: e.target.value })
     }
+
     return (
         <div>
             <div className="container mt-5 p-8 rounded cart">
                 <div className="row no-gutters">
                     <div className="col-md-12">
                         <div className="product-details me-2">
-                            <div className="d-flex flex-row align-items-center"><i className="fa fa-long-arrow-left"></i><span className="ml-2">Continue Shopping</span></div>
+                            <div className="d-flex flex-row align-items-center">
+                                <Link to={'/'}> <i className="fa fa-long-arrow-left"></i><span className="ml-2">Continue Shopping</span>
+                                </Link>
+                            </div>
                             <hr />
                             <h6 className="mb-0">Shopping cart</h6>
-                            {cartLocal.map((element) => (
+                            {cart.map((element) => (
                                 <div key={element._id} className="d-flex justify-content-between align-items-center mt-3 p-2 items rounded">
                                     <div className="d-flex flex-row">
                                         <div className="me-4">
@@ -62,14 +48,16 @@ const Cart = ({ cart, addItem, removeItem }) => {
                                                 name="quantity"
                                                 className="form-control"
                                                 id="quantity"
-                                                value={cartLocal[0].quantity}
-                                                onChange={(e) => handleChange(e, 0)} required />
-                                            {cartLocal[0].avalaiblekilos && cartLocal[0].avalaiblekilos + ' Kg (max)'}
+                                                value={element.quantity}
+                                                onChange={(e) => handleChange(e, element)} required />
+
+                                            {element.avalaiblekilos && element.avalaiblekilos + ' Kg (max)'}
                                         </span>
                                     </div>
                                     <div className="d-flex flex-row align-items-center">
-                                        <span className="d-block ms-5 fw-bold">€ {(cartLocal[0].quantity * cartLocal[0].kiloPrice).toFixed(2)} </span>
-                                        <i className="fa fa-trash-o ms-3 text-black-50"></i>
+                                        <span className="d-block ms-5 fw-bold">€ {(element.quantity * element.kiloPrice).toFixed(2)}</span>
+                                        &nbsp;
+                                        <i className="fa fa-trash" aria-hidden="true" onClick={() => removeItem(element)}></i>
                                     </div>
                                 </div>
                             ))}
@@ -89,7 +77,7 @@ export default connect((state) =>
 }),
     (dispatch) => ({
 
-        addItem: (item) => dispatch({ type: ADD_RESERVATION, payload: item }),
+        updateItem: (item) => dispatch({ type: UPDATE_RESERVATION, payload: item }),
         removeItem: (item) => dispatch({ type: REMOVE_RESERVATION, payload: item })
     })
 )(Cart); 

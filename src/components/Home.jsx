@@ -24,7 +24,6 @@ const Home = ({ allTrips, auth, onLoadAllTrips, onAddTOCart }) => {
             <span className="align-middle kilo ">
               {element.avalaiblekilos && element.avalaiblekilos + ' Kg  (dispo)'}
             </span>
-
           </div>
 
           <div className="d-flex justify-content-center">

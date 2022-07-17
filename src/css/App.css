@@ -1,6 +1,16 @@
 div.container-lg > nav{
   height: auto;
 }
+.cartIndicator{
+  display: flex;
+  font-size: 15px;
+  color: red ;
+  position: absolute;
+  bottom: 40%;
+  left: 49%;
+
+}
+
 #colorGrey{
  text-align: center;
 }
