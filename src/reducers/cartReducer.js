@@ -1,3 +1,7 @@
+import {
+  postReservation
+} from "../services/reservationService";
+
 let initialAuth = [];
 let getLocalAuth = () => {
   let cart = JSON.parse(sessionStorage.getItem('CART'));
@@ -15,6 +19,7 @@ let getLocalAuth = () => {
 export const UPDATE_RESERVATION = 'UPDATE_RESERVATION'
 export const ADD_RESERVATION = 'ADD_RESERVATION';
 export const REMOVE_RESERVATION = 'REMOVE_RESERVATION';
+export const VALIDATE_RESERVATION = 'VALIDATE_RESERVATION';
 
 
 function cartReducer(state = getLocalAuth(), action) {
@@ -50,7 +55,6 @@ function cartReducer(state = getLocalAuth(), action) {
       }
 
       return newCart;
-
     case REMOVE_RESERVATION:
       newCart = state.filter((element) => element !== action.payload);
       sessionStorage.setItem('CART', JSON.stringify(newCart));

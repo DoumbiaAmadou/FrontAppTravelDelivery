@@ -11,4 +11,4 @@ let tripsReducer = (state = [], action) => {
 
   }
 }
-export default tripsReducer; 
+export default tripsReducer;

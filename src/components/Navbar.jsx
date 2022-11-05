@@ -12,13 +12,13 @@ const NavBar = ({ auth, cart, disconnect }) => {
       <div className="container-lg ">
         <nav className="navbar navbar-expand-lg navbar-light bg-light justify-content-center">
           <Link className="navbar-brand ml-1 mr-auto" to={"/"}> Export Solutions </Link>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03"
+          <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03"
             aria-controls="navbarTogglerDemo03"
             aria-expanded="false" aria-label="Toggle navigation">
 
-            <span class="navbar-toggler-icon"></span>
+            <span className="navbar-toggler-icon"></span>
           </button>
-          <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+          <div className="collapse navbar-collapse" id="navbarTogglerDemo03">
             <ul className="navbar-nav mr-1 ml-auto">
               {(!auth || !auth.isConnected) &&
                 <React.Fragment>
@@ -45,7 +45,7 @@ const NavBar = ({ auth, cart, disconnect }) => {
               </li>
 
               {(auth && auth.isConnected) &&
-                <li className=" nav-item"><Link className='btn-outline-success ' data-toggle="collapse" data-target=".navbar-collapse.show" onClick={disconnect} > Se deconnecter! </Link> </li>
+                <li className=" nav-item"><Link to='#' className='btn-outline-success ' data-toggle="collapse" data-target=".navbar-collapse.show" onClick={disconnect} > Se deconnecter! </Link> </li>
               }
             </ul>
           </div>
