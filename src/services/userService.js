@@ -1,4 +1,6 @@
-const BaseUrl = 'http://localhost:3000/user';
+// require('dotenv').config()
+
+const BaseUrl = process.env.REACT_APP_BACKENDURL + 'user';
 
 
 let createNewUser = async (user) => {

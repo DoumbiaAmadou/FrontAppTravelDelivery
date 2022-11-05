@@ -5,7 +5,13 @@ import { LOAD_TRIPS } from '../reducers/tripsReducer'
 
 const Home = ({ allTrips, auth, onLoadAllTrips, onAddTOCart }) => {
 
-  // display 
+  const formatUrl = (imageList) => {
+    if (imageList)
+      return imageList.map((image) => image.replace('http://localhost:3000/',
+        'https://backendtraveldelivery.herokuapp.com/'))
+    return '';
+  }  
+// display 
   /**
    * 
    * @param {object} element 
@@ -51,7 +57,7 @@ const Home = ({ allTrips, auth, onLoadAllTrips, onAddTOCart }) => {
         </div>
 
         <div className='regregre'>
-          <img alt="" className="circle  responsive-img" src={element.images} />
+          <img alt="" className="circle  responsive-img" src={formatUrl(element.images)} />
         </div>
       </li>
     )

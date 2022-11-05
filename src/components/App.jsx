@@ -13,12 +13,14 @@ import { Provider } from "react-redux";
 import store from '../store'
 import { useEffect } from "react";
 import { LOAD_TRIPS } from '../reducers/tripsReducer'
-function App() {
 
+function App() {
 
   useEffect(() => {
     console.log('APP =>', store.getState())
-    fetch('http://localhost:3000/trip')
+    const url = process.env.REACT_APP_BACKENDURL + 'trip';
+    console.log("==>", url);
+    fetch(url)
       .then(res => res.json())
       .then(json => {
         console.log(' init', json.trips.length)
@@ -35,7 +37,6 @@ function App() {
         })
       })
   }
-
     , [])
 
   return (
