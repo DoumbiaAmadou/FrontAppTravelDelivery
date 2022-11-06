@@ -1,4 +1,3 @@
-const BaseUrl = 'http://localhost:3000/reservation';
 
 // reservation
 /**
@@ -8,26 +7,26 @@ const BaseUrl = 'http://localhost:3000/reservation';
  */
 let postReservation = async (reservation) => {
   let auth = JSON.parse(localStorage.getItem('AUTH'));
-  if (!auth.user)
+  if (!auth || !auth.user)
     return {
       status: 'UNCONNECTED',
       message: 'You should conned to post reservation'
     }
   let {
-    _id,
+    userId,
     name,
     firstName
   } = auth.user;
 
   reservation = {
     ...reservation,
-    user: _id,
+    user: userId,
     name,
     firstName,
   }
-
-  console.log('==>', reservation)
-  let res = await fetch(BaseUrl, {
+  //{ tripId, kilosReserved, date_Res, name, firstName, user }
+  console.log(' ==>', reservation);
+  let res = await fetch(process.env.REACT_APP_BACKENDURL + 'reservation', {
     method: "post",
     headers: {
       'Content-Type': 'application/json',
@@ -35,6 +34,7 @@ let postReservation = async (reservation) => {
     },
     body: JSON.stringify(reservation)
   });
+
   if (!res.ok) {
     console.log(res);
     console.error(res);

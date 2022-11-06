@@ -34,11 +34,11 @@ let createNewUser = async (user) => {
   }
 }
 
-let loginUser = async ({
-  email,
-  password
-}) => {
-
+let loginUser = async (user) => {
+    let {
+        email,
+        password
+    } = user ; 
   let res = await fetch(BaseUrl + '/login', {
     method: "post",
     headers: {

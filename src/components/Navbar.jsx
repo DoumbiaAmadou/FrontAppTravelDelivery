@@ -5,7 +5,6 @@ import { DISCONNECT_USER } from '../reducers/authReducer';
 
 const NavBar = ({ auth, cart, disconnect }) => {
   // let history = useHistory();
-  console.log('amad ', cart.length);
 
   return (
     <>

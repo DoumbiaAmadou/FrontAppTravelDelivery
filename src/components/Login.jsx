@@ -26,13 +26,16 @@ const LoginUI = ({ userConnected, isConnected, onStoreUser }) => {
     //token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6I…xOTh9.3Q1c0hqMs9GJMk4MwD4Fj0uKw7lXpt_vpt0pGCF3OR4'}
     console.log('connectedUser', connectedUser)
     if (connectedUser.status === 'OK') {
-      delete connectedUser.message;
-      onStoreUser(connectedUser);
-      history.push('/')
+      delete connectedUser.ok;
+      delete connectedUser.status;
+      onStoreUser({
+        ...connectedUser
+      });
+
+      history.push('/');
     } else {
       console.log('connectedUser', connectedUser)
       setUser({ email: '', password: '', message: connectedUser.message })
-
     }
 
   }

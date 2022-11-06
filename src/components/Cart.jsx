@@ -1,41 +1,52 @@
 import React from "react";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { UPDATE_RESERVATION, REMOVE_RESERVATION, VALIDATE_RESERVATION } from "../reducers/cartReducer";
-import { date } from "yup/lib/locale";
+import { UPDATE_RESERVATION, REMOVE_RESERVATION } from "../reducers/cartReducer";
 import { postReservation } from "../services/reservationService";
 import { useHistory } from "react-router-dom";
 
 
 const Cart = ({ cart, updateItem, removeItem }) => {
   let history = useHistory();
+
   const handleChange = (e, element) => {
     // e.preventDefault();
     console.log('handleChange', cart, e.target.value);
     if (e.target.value < 1)
       return removeItem(element);
-    updateItem({ _id: element._id, [e.target.name]: e.target.value })
+    let value = e.target.value;
+
+    if (typeof element[e.target.name] === 'number')
+      value = parseInt(value);
+
+    updateItem({ _id: element._id, [e.target.name]: value })
   }
+
   const handleValidation = async (e) => {
     e.preventDefault();
-    cart.forEach(async element => {
+    let error = false;
+
+    for (let index = 0; index < cart.length; index++) {
+      const element = cart[index];
+
       let res = await postReservation({
         tripId: element._id,
         kilosReserved: element.quantity,
         date_Res: Date.now()
       });
-      if (res.status == 'UNCONNECTED') {
-        history.push('/login')
+      if (res.status === 'UNCONNECTED') {
+        return history.push('/login')
       }
-      if (res.status == 'OK') {
+      if (res.status === 'OK') {
         console.log('reserved')
         removeItem(element)
       } else {
         console.log(' un soucis', res)
+        error = true;
       }
-
-    })
-    history.push('/ConfirmReservation')
+    }
+    if (!error)
+      history.push('/ConfirmReservation');
   }
 
   return (

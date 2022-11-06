@@ -10,8 +10,8 @@ const Home = ({ allTrips, auth, onLoadAllTrips, onAddTOCart }) => {
       return imageList.map((image) => image.replace('http://localhost:3000/',
         'https://backendtraveldelivery.herokuapp.com/'))
     return '';
-  }  
-// display 
+  }
+  // display 
   /**
    * 
    * @param {object} element 
@@ -19,7 +19,6 @@ const Home = ({ allTrips, auth, onLoadAllTrips, onAddTOCart }) => {
    * @returns htmlContent
    */
   const items = (element) => {
-    console.log(element);
     return (
       <li key={element._id} className="collection-item avatar ">
         <div>

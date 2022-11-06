@@ -7,8 +7,8 @@ let initialAuth = { isConnected: false, user: undefined };
 let getLocalAuth = () => {
   let auth = JSON.parse(localStorage.getItem('AUTH'));
 
-  console.log('auth', auth?.user?.expirationDateth);
-  if (auth?.user?.expirationDate > Date.now()) {
+  console.log('auth ==>', auth);
+  if (auth?.user?.expiration > Date.now()) {
     return auth;
   } else {
     localStorage.setItem('AUTH', JSON.stringify(initialAuth))
