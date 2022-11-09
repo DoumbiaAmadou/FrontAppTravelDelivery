@@ -1,35 +1,31 @@
-export const STORE_USER = "STORE_USER"
-export const DISCONNECT_USER = "DISCONNECT_USER"
+export const STORE_USER = "STORE_USER";
+export const DISCONNECT_USER = "DISCONNECT_USER";
 let initialAuth = { isConnected: false, user: undefined };
 
-
-
 let getLocalAuth = () => {
-  let auth = JSON.parse(localStorage.getItem('AUTH'));
+  let auth = JSON.parse(localStorage.getItem("AUTH"));
 
-  console.log('auth ==>', auth);
   if (auth?.user?.expiration > Date.now()) {
     return auth;
   } else {
-    localStorage.setItem('AUTH', JSON.stringify(initialAuth))
+    localStorage.setItem("AUTH", JSON.stringify(initialAuth));
     return initialAuth;
   }
-
-}
+};
 let currentAuth = getLocalAuth();
 let authReducer = (state = currentAuth, action) => {
   switch (action.type) {
     case STORE_USER:
-      console.log('store element ', action.payload)
+      console.log("store element ", action.payload);
       var newUser = { ...state, user: action.payload, isConnected: true };
-      localStorage.setItem('AUTH', JSON.stringify(newUser));
-      return newUser
+      localStorage.setItem("AUTH", JSON.stringify(newUser));
+      return newUser;
     case DISCONNECT_USER:
-      localStorage.removeItem('AUTH')
-      return { ...state, ...initialAuth }
+      localStorage.removeItem("AUTH");
+      return { ...initialAuth };
     default:
-      return state
+      return state;
   }
-}
+};
 
-export default authReducer; 
+export default authReducer;
