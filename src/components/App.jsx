@@ -1,63 +1,58 @@
 import NavBar from "./Navbar";
-import { BrowserRouter, Route } from 'react-router-dom'
+import { BrowserRouter, Route } from "react-router-dom";
 import HomeStore from "./Home";
-import '../css/App.css';
+import "../css/App.css";
 import Contact from "./Contact";
 import Login from "./Login";
 import SignUp from "./SignUp";
 import About from "./About";
 import Cart from "./Cart";
 import Profile from "./Profile";
-import ConfirmReservation from "./ConfirmReservation"
+import ConfirmReservation from "./ConfirmReservation";
 import { Provider } from "react-redux";
-import store from '../store'
+import store from "../store";
 import { useEffect } from "react";
-import { LOAD_TRIPS } from '../reducers/tripsReducer'
+import { LOAD_TRIPS } from "../reducers/tripsReducer";
 
 function App() {
-
   useEffect(() => {
-    console.log('APP =>', store.getState())
-    const url = process.env.REACT_APP_BACKENDURL + 'trip';
+    console.log("APP =>", store.getState());
+    const url = process.env.REACT_APP_BACKENDURL + "trip";
     console.log("==>", url);
     fetch(url)
-      .then(res => res.json())
-      .then(json => {
-        console.log(' init', json.trips.length)
+      .then((res) => res.json())
+      .then((json) => {
+        console.log(" init", json.trips.length);
         store.dispatch({
           type: LOAD_TRIPS,
-          payload: json.trips
-        })
-
-      }).catch(err => {
-        console.log('catch', err)
-        store.dispatch({
-          type: LOAD_TRIPS,
-          payload: []
-        })
+          payload: json.trips,
+        });
       })
-  }
-    , [])
+      .catch((err) => {
+        console.log("catch", err);
+        store.dispatch({
+          type: LOAD_TRIPS,
+          payload: [],
+        });
+      });
+  }, []);
 
   return (
-    <Provider store={store}  >
-
+    <Provider store={store}>
       <BrowserRouter>
         <div className="App">
           <NavBar></NavBar>
-          <Route exact path='/' component={HomeStore} />
-          <Route path='/signUp' component={SignUp} />
-          <Route path='/login' component={Login} />
-          <Route path='/profile' component={Profile} />
-          <Route path='/about' component={About} />
-          <Route path='/ConfirmReservation' component={ConfirmReservation} />
-          <Route path='/contact' component={Contact} />
-          <Route path='/cart' component={Cart} />
+          <Route exact path="/" component={HomeStore} />
+          <Route path="/signUp" component={SignUp} />
+          <Route path="/login" component={Login} />
+          <Route path="/profile" component={Profile} />
+          <Route path="/about" component={About} />
+          <Route path="/ConfirmReservation" component={ConfirmReservation} />
+          <Route path="/contact" component={Contact} />
+          <Route path="/cart" component={Cart} />
         </div>
       </BrowserRouter>
-
     </Provider>
-
   );
 }
 
